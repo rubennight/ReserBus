@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReserBus"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1024" Width="1440"
+        WindowState="Maximized">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" MinWidth="60" MaxWidth="90" />
+            <ColumnDefinition Width="95*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="#002755" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Background="White" Grid.Row="0" Height="60" VerticalAlignment="Center" >
+                <Image Source="/Assets/logo.png" Width="40" Height="40" />
+            </Grid>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Orientation="Vertical">
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                    <Button.Content>
+                        <Image Source="/Assets/home.png" Width="30" Height="30" />
+                    </Button.Content>
+                </Button>
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                    <Button.Content>
+                        <Image Source="/Assets/tcket.png" Width="30" Height="30" />
+                    </Button.Content>
+                </Button>
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                    <Button.Content>
+                        <Image Source="/Assets/clock.png" Width="30" Height="30" />
+                    </Button.Content>
+                </Button>
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                    <Button.Content>
+                        <Image Source="/Assets/bus-front.png" Width="30" Height="30" />
+                    </Button.Content>
+                </Button>
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                    <Button.Content>
+                        <Image Source="/Assets/people.png" Width="30" Height="30"/>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Grid>
         
     </Grid>
 </Window>
