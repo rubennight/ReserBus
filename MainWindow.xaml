@@ -48,6 +48,6 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
+        <Frame x:Name="Main" NavigationUIVisibility="Hidden" Grid.Column="1" />
     </Grid>
 </Window>
