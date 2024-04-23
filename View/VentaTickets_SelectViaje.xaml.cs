@@ -16,22 +16,13 @@ using System.Windows.Shapes;
 namespace ReserBus.View
 {
     /// <summary>
-    /// Lógica de interacción para Home.xaml
+    /// Lógica de interacción para VentaTickets_SelectViaje.xaml
     /// </summary>
-    public partial class Home : Page
+    public partial class VentaTickets_SelectViaje : Page
     {
-        public Home()
+        public VentaTickets_SelectViaje()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            View.VentaTickets_SelectViaje homePage = new View.VentaTickets_SelectViaje();
-            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-
-
-            mainWindow.Main.Content = homePage;
         }
     }
 }

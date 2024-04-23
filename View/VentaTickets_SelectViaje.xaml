@@ -1,0 +1,61 @@
+﻿<Page x:Class="ReserBus.View.VentaTickets_SelectViaje"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ReserBus.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="VentaTickets_SelectViaje">
+
+    <Grid Background="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="70" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="7*"/>
+                <ColumnDefinition  Width="3*" MaxWidth="200"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock  FontFamily="Helvetica" Text="Venta de tickets" Grid.Column="0" FontSize="32" FontWeight="SemiBold" Padding="30,25,25,0" />
+            <StackPanel Grid.Column="1" Margin="0,25,30,0">
+                <TextBlock Text="Sucursal" HorizontalAlignment="Right" Margin="0,0,0,5" />
+                <ComboBox x:Name="Sucursal" ItemsSource="{Binding Destinos}" DisplayMemberPath="destino" SelectedItem="{Binding SelectedDestino}" />
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="Datos del boleto" Grid.Row="1" Padding="30,0,30,0" FontSize="25" />
+        <Grid Grid.Row="2" Margin="30,0,30,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  />
+                <ColumnDefinition  />
+                <ColumnDefinition  />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="0,0,15,0" >
+                <TextBlock Text="Origen" FontSize="18" />
+                <ComboBox />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="0,0,15,0" >
+                <TextBlock Text="Destino" FontSize="18" />
+                <ComboBox />
+            </StackPanel>
+            <StackPanel Grid.Column="2" >
+                <TextBlock Text="Fecha" FontSize="18" />
+                <DatePicker />
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="Viajes coincidentes" Grid.Row="3" FontSize="18" Padding="30,0,0,0" />
+        <DataGrid Grid.Row="4" ItemsSource="{Binding LlegadasData}" Margin="30,0,30,20" FontSize="18">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Salida" Binding="{Binding Salida}" Width="1*" />
+                <DataGridTextColumn Header="LLegada" Binding="{Binding Llegada}" Width="1*" />
+                <DataGridTextColumn Header="Lugares libres" Binding="{Binding Plazas}" Width="1.2*" />
+                <DataGridTextColumn Header="Costo" Binding="{Binding Costo}" Width=".7*" />
+                <DataGridTextColumn Header="Pasa por" Binding="{Binding Escalas}" Width="2.5*" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

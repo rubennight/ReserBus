@@ -8,11 +8,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Home">
 
-    <StackPanel Background="White" >
-        <Grid>
+    <Grid Background="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition  Width="7*"/>
-                <ColumnDefinition  Width="3*"/>
+                <ColumnDefinition  Width="3*" MaxWidth="200"/>
             </Grid.ColumnDefinitions>
             <TextBlock  FontFamily="Helvetica" Text="Inicio" Grid.Column="0" FontSize="32" FontWeight="SemiBold" Padding="30,25,25,0" />
             <StackPanel Grid.Column="1" Margin="0,25,30,0">
@@ -20,19 +27,19 @@
                 <ComboBox x:Name="Sucursal" ItemsSource="{Binding Destinos}" DisplayMemberPath="destino" SelectedItem="{Binding SelectedDestino}" />
             </StackPanel>
         </Grid>
-        <Grid Margin="0,30,0,0">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*" />
-                <ColumnDefinition Width="3*" MinWidth="200"/>
+                <ColumnDefinition Width="3*" MaxWidth="200"/>
             </Grid.ColumnDefinitions>
             <TextBlock FontFamily="Helvetica" Text="Próximas salidas" Grid.Column="0" FontSize="25" Padding="30,0,30,0" />
-            <Button Padding="32,0,32,0" Grid.Column="1" BorderBrush="#00FFFFFF" Background="#279700" Margin="0,0,30,0">
+            <Button Padding="32,0,32,0" Grid.Column="1" BorderBrush="#00FFFFFF" Background="#279700" Margin="0,0,30,0" Click="Button_Click">
                 <Button.Content>
                     <TextBlock Text="Ir a venta de boletos" Foreground="White" />
                 </Button.Content>
             </Button>
         </Grid>
-        <DataGrid ItemsSource="{Binding SalidasData}" Margin="30,15,30,0" Height="100">
+        <DataGrid Grid.Row="2" Margin="30,15,30,20" ItemsSource="{Binding SalidasData}" FontSize="18">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Destino" Binding="{Binding Destino}" Width="150" />
                 <DataGridTextColumn Header="Salida" Binding="{Binding Salida}" Width="150" />
@@ -41,8 +48,8 @@
                 <DataGridTextColumn Header="Pasa por" Binding="{Binding Escalas}" Width="150" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Margin="0,30,0,0" FontFamily="Helvetica" Text="Próximas llegadas" Grid.Column="0" FontSize="25" Padding="30,0,30,0" />
-        <DataGrid ItemsSource="{Binding LlegadasData}" Margin="30,15,30,0" Height="100">
+        <TextBlock Grid.Row="3" FontFamily="Helvetica" Text="Próximas llegadas" Grid.Column="0" FontSize="25" Padding="30,0,30,0" />
+        <DataGrid Grid.Row="4" ItemsSource="{Binding LlegadasData}" Margin="30,15,30,20" FontSize="18">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Origen" Binding="{Binding Origen}" Width="150" />
                 <DataGridTextColumn Header="Hora de salida" Binding="{Binding Salida}" Width="150" />
@@ -50,5 +57,5 @@
                 <DataGridTextColumn Header="Pasa por" Binding="{Binding Escalas}" Width="150" />
             </DataGrid.Columns>
         </DataGrid>
-    </StackPanel>
+    </Grid>
 </Page>
