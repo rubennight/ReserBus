@@ -21,12 +21,12 @@
                 <Image Source="/Assets/logo.png" Width="40" Height="40" />
             </Grid>
             <StackPanel Grid.Row="1" VerticalAlignment="Center" Orientation="Vertical">
-                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF" Click="Button_Click">
                     <Button.Content>
                         <Image Source="/Assets/home.png" Width="30" Height="30" />
                     </Button.Content>
                 </Button>
-                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF" Click="Button_Click_1">
                     <Button.Content>
                         <Image Source="/Assets/tcket.png" Width="30" Height="30" />
                     </Button.Content>

@@ -27,5 +27,17 @@ namespace ReserBus
 
             Main.Content = homePage;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            View.Home homePage = new View.Home();
+            Main.Content = homePage;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            View.VentaTickets_SelectViaje ventaTickets = new View.VentaTickets_SelectViaje();
+            Main.Content = ventaTickets;
+        }
     }
 }
