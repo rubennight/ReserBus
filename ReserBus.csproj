@@ -58,6 +58,9 @@
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\VentaTickets_Formulario.xaml.cs">
+      <DependentUpon>VentaTickets_Formulario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\VentaTickets_SelectViaje.xaml.cs">
       <DependentUpon>VentaTickets_SelectViaje.xaml</DependentUpon>
     </Compile>
@@ -74,6 +77,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VentaTickets_Formulario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
