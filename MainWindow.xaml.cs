@@ -25,8 +25,9 @@ namespace ReserBus
         {
             InitializeComponent();
             View.Home homePage = new View.Home();
+            View.VentaTickets_Formulario venta_form = new View.VentaTickets_Formulario();
 
-            Main.Content = homePage;
+            Main.Content = venta_form;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

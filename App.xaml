@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:ReserBus"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="#F5F5F5" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Margin" Value="0,10,40,0" />
+        </Style>
     </Application.Resources>
 </Application>
