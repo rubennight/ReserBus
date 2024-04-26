@@ -74,23 +74,22 @@
             ItemsSource="{Binding SalidasData}">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Width="150"
+                    Width="15*"
                     Binding="{Binding Destino}"
                     Header="Destino" />
                 <DataGridTextColumn
-                    Width="150"
+                    Width="10*"
                     Binding="{Binding Salida}"
                     Header="Salida" />
                 <DataGridTextColumn
-                    Width="150"
+                    Width="10*"
                     Binding="{Binding Llegada}"
                     Header="Llegada" />
                 <DataGridTextColumn
-                    Width="150"
+                    Width="5*"
                     Binding="{Binding LugaresLibres}"
                     Header="Lugares libres" />
                 <DataGridTextColumn
-                    Width="150"
                     Binding="{Binding Escalas}"
                     Header="Pasa por" />
             </DataGrid.Columns>
@@ -111,19 +110,19 @@
             ItemsSource="{Binding LlegadasData}">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Width="150"
+                    Width="25*"
                     Binding="{Binding Origen}"
                     Header="Origen" />
                 <DataGridTextColumn
-                    Width="150"
+                    Width="25*"
                     Binding="{Binding Salida}"
                     Header="Hora de salida" />
                 <DataGridTextColumn
-                    Width="150"
+                    Width="25*"
                     Binding="{Binding Llegada}"
                     Header="Hora de llegada" />
                 <DataGridTextColumn
-                    Width="150"
+                    Width="25*"
                     Binding="{Binding Escalas}"
                     Header="Pasa por" />
             </DataGrid.Columns>

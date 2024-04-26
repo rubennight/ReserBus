@@ -14,6 +14,7 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="70" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -24,7 +25,7 @@
             <TextBlock  FontFamily="Helvetica" Text="Venta de tickets" Grid.Column="0" FontSize="32" FontWeight="SemiBold" Padding="30,25,25,0" />
             <StackPanel Grid.Column="1" Margin="0,25,30,0">
                 <TextBlock Text="Sucursal" HorizontalAlignment="Right" Margin="0,0,0,5" />
-                <ComboBox x:Name="Sucursal" ItemsSource="{Binding Destinos}" DisplayMemberPath="destino" SelectedItem="{Binding SelectedDestino}" />
+                <ComboBox x:Name="Sucursal"  DisplayMemberPath="destino" />
             </StackPanel>
         </Grid>
         <TextBlock Text="Datos del boleto" Grid.Row="1" Padding="30,0,30,0" FontSize="25" />
@@ -36,25 +37,37 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="0,0,15,0" >
                 <TextBlock Text="Origen" FontSize="18" />
-                <ComboBox />
+                <ComboBox FontSize="18"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="0,0,15,0" >
                 <TextBlock Text="Destino" FontSize="18" />
-                <ComboBox />
+                <ComboBox FontSize="18"/>
             </StackPanel>
-            <StackPanel Grid.Column="2" >
+            <StackPanel Grid.Column="2">
                 <TextBlock Text="Fecha" FontSize="18" />
-                <DatePicker />
+                <DatePicker FontSize="18"/>
             </StackPanel>
         </Grid>
-        <TextBlock Text="Viajes coincidentes" Grid.Row="3" FontSize="18" Padding="30,0,0,0" />
-        <DataGrid Grid.Row="4" ItemsSource="{Binding LlegadasData}" Margin="30,0,30,20" FontSize="18">
+        <Button
+            Grid.Row="3"
+            Padding="32,0,32,0"
+            Background="#279700"
+            BorderBrush="#00FFFFFF"
+            HorizontalAlignment="Right"
+            Margin="0,0,30,0"
+            x:Name="btnBuscar">   
+            <Button.Content>
+                <TextBlock Foreground="White" Text="Buscar viajes" />
+            </Button.Content>
+        </Button>
+        <TextBlock Text="Viajes coincidentes" Grid.Row="4" FontSize="18" Padding="30,0,0,0" />
+        <DataGrid Grid.Row="5" Margin="30,0,30,20" FontSize="18">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Salida" Binding="{Binding Salida}" Width="1*" />
-                <DataGridTextColumn Header="LLegada" Binding="{Binding Llegada}" Width="1*" />
-                <DataGridTextColumn Header="Lugares libres" Binding="{Binding Plazas}" Width="1.2*" />
-                <DataGridTextColumn Header="Costo" Binding="{Binding Costo}" Width=".7*" />
-                <DataGridTextColumn Header="Pasa por" Binding="{Binding Escalas}" Width="2.5*" />
+                <DataGridTextColumn Header="Salida" Width="1*" />
+                <DataGridTextColumn Header="LLegada" Width="1*" />
+                <DataGridTextColumn Header="Lugares libres" Width="1.2*" />
+                <DataGridTextColumn Header="Costo" Width=".7*" />
+                <DataGridTextColumn Header="Pasa por" Width="2.5*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
