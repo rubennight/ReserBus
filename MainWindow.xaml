@@ -31,7 +31,7 @@
                         <Image Source="/Assets/tcket.png" Width="30" Height="30" />
                     </Button.Content>
                 </Button>
-                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF" Click="Button_Click_2">
                     <Button.Content>
                         <Image Source="/Assets/clock.png" Width="30" Height="30" />
                     </Button.Content>

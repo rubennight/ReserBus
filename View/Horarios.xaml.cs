@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace ReserBus.View
 {
     /// <summary>
-    /// Lógica de interacción para VentaTickets_SelectViaje.xaml
+    /// Lógica de interacción para Horarios.xaml
     /// </summary>
-    public partial class VentaTickets_SelectViaje : Page
+    public partial class Horarios : Page
     {
-        public VentaTickets_SelectViaje()
+        public Horarios()
         {
             InitializeComponent();
-
-
         }
     }
 }
