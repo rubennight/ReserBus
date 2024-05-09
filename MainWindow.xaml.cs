@@ -41,5 +41,11 @@ namespace ReserBus
             View.VentaTickets_SelectViaje ventaTickets = new View.VentaTickets_SelectViaje();
             Main.Content = ventaTickets;
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            View.Horarios horarios = new View.Horarios();
+            Main.Content = horarios;
+        }
     }
 }
