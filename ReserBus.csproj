@@ -63,6 +63,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReserBusDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ReserBusDB1_3DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReserBusDB1_3DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -130,6 +135,17 @@
     </None>
     <None Include="ReserBusDataSet.xss">
       <DependentUpon>ReserBusDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ReserBusDB1_3DataSet.xsc">
+      <DependentUpon>ReserBusDB1_3DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ReserBusDB1_3DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReserBusDB1_3DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ReserBusDB1_3DataSet.xss">
+      <DependentUpon>ReserBusDB1_3DataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

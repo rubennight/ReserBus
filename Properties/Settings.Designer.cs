@@ -33,5 +33,16 @@ namespace ReserBus.Properties {
                 return ((string)(this["ReserBusConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PC-GAMER\\VSGESTION;Initial Catalog=\"dbo v_1.3\";Integrated Security=Tr" +
+            "ue;Encrypt=True;TrustServerCertificate=True")]
+        public string dbo_v_1_3ConnectionString {
+            get {
+                return ((string)(this["dbo_v_1_3ConnectionString"]));
+            }
+        }
     }
 }
