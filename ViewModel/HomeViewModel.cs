@@ -46,8 +46,8 @@ namespace ReserBus.ViewModel
 
             miConexionSql = new SqlConnection(miConexion);
 
-            //MuestraProximasSalidas();
-            //MuestraProximasLlegadas();
+            MuestraProximasSalidas();
+            MuestraProximasLlegadas();
         }
 
         public void MuestraProximasSalidas()
