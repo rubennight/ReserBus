@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReserBus.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -175,6 +176,26 @@ namespace ReserBus.View
             Console.WriteLine(DPFecha.SelectedDate.Value.ToString("yyyy/MM/dd"));
 
             muestraViajesCoincidentes(CBOrigen.SelectedValue.ToString(), CBDestino.SelectedValue.ToString(), DPFecha.SelectedDate.Value.ToString("yyyy/MM/dd"));
+        }
+
+        private void handleDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is DataGrid dataGrid && dataGrid.SelectedItem != null)
+            {
+                // Reemplazar el modelo
+                var selectedItem = dataGrid.SelectedItem;
+
+                // Convierte el elemento seleccionado al tipo de objeto correspondiente (si es necesario)
+                // Por ejemplo, si el DataGrid está enlazado a una colección de objetos de tipo 'MyItem', puedes hacer lo siguiente:
+                // var selectedMyItem = (MyItem)selectedItem;
+
+                // Ahora puedes acceder a las propiedades del elemento seleccionado y utilizarlas como desees
+                // Por ejemplo, puedes mostrarlas en un MessageBox
+                DataRowView rowView = (DataRowView)dataGrid.SelectedItem;
+                MessageBox.Show($"Elemento seleccionado: {rowView["id_viaje_programado"].ToString()}");
+
+            }
+
         }
     }
 }

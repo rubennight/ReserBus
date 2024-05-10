@@ -42,7 +42,7 @@ namespace ReserBus.ViewModel
 
         public HomeViewModel()
         {
-            string miConexion = ConfigurationManager.ConnectionStrings["ReserBus.Properties.Settings.ReserBusConnectionString"].ConnectionString;
+            string miConexion = ConfigurationManager.ConnectionStrings["ReserBus.Properties.Settings.dbo_v_1_3ConnectionString"].ConnectionString;
 
             miConexionSql = new SqlConnection(miConexion);
 
@@ -52,7 +52,7 @@ namespace ReserBus.ViewModel
 
         public void MuestraProximasSalidas()
         {
-            string consulta = "SELECT\r\n\trvp.nombre_ruta AS destino,\r\n\tvp.fecha_hora_salida AS salida,\r\n\tvp.fecha_hora_llegada_estimada AS llegada,\r\n\tMAX ( u.numero_asientos ) - MAX ( total_pasajeros ) AS asientos_disponibles,\r\n\tSTRING_AGG ( d.ciudad, ', ' ) AS pasa_por \r\nFROM\r\n\truta_viaje_programado AS rvp\r\n\tINNER JOIN destinos AS d ON d.id_destino = rvp.id_destino\r\n\tINNER JOIN viajes_programados AS vp ON vp.id_viaje_programado = rvp.id_ruta_viaje_programado\r\n\tINNER JOIN unidades AS u ON u.id_unidad = vp.id_unidad\r\n\tINNER JOIN ( SELECT id_viaje_programado, COUNT ( id_pasajero ) AS total_pasajeros FROM boletos GROUP BY id_viaje_programado ) AS total_pasajeros_table ON total_pasajeros_table.id_viaje_programado = vp.id_viaje_programado \r\nGROUP BY\r\n\trvp.nombre_ruta,\r\n\tvp.fecha_hora_salida,\r\n\tvp.fecha_hora_llegada_estimada;";
+            string consulta = "select \r\n\tid_ruta,\r\n\tdestino,\r\n\tsalida,\r\n\tllegada,\r\n\tmax(numero_asientos)-max(total_pasajeros) as asientos_disponibles,\r\n\tstring_agg(ciudad,', ') as pasa_por\r\nfrom\r\n(\r\nSELECT\r\n\trvp.id_ruta,\r\n  first_value(d.ciudad) over (PARTITION BY rvp.id_ruta ORDER BY d.id_destino) AS destino,\r\n  vp.fecha_hora_salida AS salida,\r\n  vp.fecha_hora_llegada_estimada AS llegada,\r\n  u.numero_asientos,\r\n  total_pasajeros,\r\n  d.ciudad\r\n  FROM\r\n  [dbo v_1.3].rutas AS rvp\r\n  INNER JOIN [dbo v_1.3].destinos AS d ON d.id_destino = rvp.id_destino\r\n  INNER JOIN [dbo v_1.3].viajes_programados AS vp ON vp.id_viaje_programado = rvp.id_ruta\r\n  INNER JOIN [dbo v_1.3].unidades AS u ON u.id_unidad = vp.id_unidad\r\n  INNER JOIN (\r\n      SELECT\r\n      id_ruta,\r\n      COUNT (id_pasajero) AS total_pasajeros\r\n    FROM\r\n      [dbo v_1.3].boletos\r\n    GROUP BY\r\n      id_ruta\r\n  ) AS total_pasajeros_table ON total_pasajeros_table.id_ruta= vp.id_viaje_programado\r\n) sq\r\ngroup by\r\nid_ruta,\r\ndestino,\r\n\tsalida,\r\n\tllegada;";
 
             SqlDataAdapter adapter = new SqlDataAdapter(consulta, miConexionSql);
 
@@ -81,7 +81,7 @@ namespace ReserBus.ViewModel
 
         public void MuestraProximasLlegadas()
         {
-            string consulta = "SELECT \r\n\td.ciudad + ', ' + d.estado AS origen,\r\n\tvp.fecha_hora_salida AS hora_salida,\r\n\tvp.fecha_hora_llegada_estimada AS hora_llegada,\r\n\td_2.ciudad + ', ' + d_3.ciudad + ' y ' + d_4.ciudad AS pasa_por \r\nFROM \r\n\truta_viaje_programado AS rvp\r\n\tINNER JOIN destinos AS d ON d.id_destino = rvp.id_destino \r\n\tAND rvp.destino_posicion = 1\r\n\tINNER JOIN viajes_programados AS vp ON vp.id_viaje_programado = rvp.id_ruta_viaje_programado \r\n\tAND rvp.destino_posicion = 1\r\n\tLEFT JOIN ruta_viaje_programado AS rvp_2 ON rvp_2.id_ruta_viaje_programado = rvp.id_ruta_viaje_programado \r\n\tAND rvp_2.destino_posicion = 2\r\n\tLEFT JOIN destinos AS d_2 ON d_2.id_destino = rvp_2.id_destino\r\n\tLEFT JOIN ruta_viaje_programado AS rvp_3 ON rvp_3.id_ruta_viaje_programado = rvp.id_ruta_viaje_programado \r\n\tAND rvp_3.destino_posicion = 3\r\n\tLEFT JOIN destinos AS d_3 ON d_3.id_destino = rvp_3.id_destino\r\n\tLEFT JOIN ruta_viaje_programado AS rvp_4 ON rvp_4.id_ruta_viaje_programado = rvp.id_ruta_viaje_programado \r\n\tAND rvp_4.destino_posicion = 4\r\n\tLEFT JOIN destinos AS d_4 ON d_4.id_destino = rvp_4.id_destino;";
+            string consulta = "select\r\n\torigen,\r\n\thora_salida,\r\n\thora_llegada,\r\n\tSTRING_AGG(ciudad, ', ') as pasa_por\r\nfrom\r\n(\r\nSELECT\r\n\tFIRST_VALUE(d.ciudad) OVER (PARTITION BY id_ruta order by d.id_destino) + ', ' + FIRST_VALUE(d.estado) OVER (PARTITION BY id_ruta order by d.id_destino) as origen,\r\n\tvp.fecha_hora_salida as hora_salida,\r\n\tvp.fecha_hora_llegada_estimada as hora_llegada,\r\n\td.ciudad\r\nFROM\r\n\t[dbo v_1.3].rutas AS rvp\r\n\tinner join [dbo v_1.3].destinos d on d.id_destino=rvp.id_destino\r\n\tinner join [dbo v_1.3].viajes_programados vp on vp.id_viaje_programado=rvp.id_ruta\r\n) sq\r\ngroup by\r\n\torigen,\r\n\thora_salida,\r\n\thora_llegada;";
 
             SqlDataAdapter adapter = new SqlDataAdapter(consulta, miConexionSql);
 
