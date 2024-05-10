@@ -25,12 +25,12 @@
                 <ComboBox x:Name="Sucursal"  DisplayMemberPath="destino" />
             </StackPanel>
         </Grid>
-        <DataGrid Grid.Row="2" Margin="30,0,30,20" FontSize="18">
+        <DataGrid x:Name="DGViajesProgramados" Grid.Row="2" Margin="30,0,30,20" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Origen" Width="1*" />
-                <DataGridTextColumn Header="Destino" Width="1*" />
-                <DataGridTextColumn Header="Fecha Salida" Width="1.2*" />
-                <DataGridTextColumn Header="Unidad" Width=".7*" />
+                <DataGridTextColumn Header="Origen" Binding="{Binding primera_ciudad}" Width="1*" />
+                <DataGridTextColumn Header="Destino" Binding="{Binding ultima_ciudad}" Width="1*" />
+                <DataGridTextColumn Header="Fecha Salida" Binding="{Binding primera_fecha_hora_salida}" Width="1.2*" />
+                <DataGridTextColumn Header="Unidad" Binding="{Binding primer_modelo}" Width=".7*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

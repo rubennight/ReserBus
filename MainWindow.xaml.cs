@@ -46,6 +46,7 @@ namespace ReserBus
         {
             View.Horarios horarios = new View.Horarios();
             Main.Content = horarios;
+
         }
     }
 }
