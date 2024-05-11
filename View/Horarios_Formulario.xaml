@@ -51,11 +51,11 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Margin="0,0,10,0">
                     <TextBlock Text="Origen" FontSize="18" />
-                    <ComboBox Height="30" FontSize="18" />
+                    <ComboBox x:Name="Origen" Height="30" FontSize="18" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0,0,10,0">
                     <TextBlock Text="Destino" FontSize="18" />
-                    <ComboBox Height="30" FontSize="18" />
+                    <ComboBox x:Name="Destino" Height="30" FontSize="18" />
                 </StackPanel>
             
             </Grid>
@@ -78,11 +78,11 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Margin="0,0,10,0">
                     <TextBlock Text="Conductor" FontSize="18" />
-                    <ComboBox Height="30" FontSize="18" />
+                    <ComboBox x:Name="CBConductor" Height="30" FontSize="18" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0,0,10,0">
                     <TextBlock Text="Unidad" FontSize="18" />
-                    <ComboBox Height="30" FontSize="18" />
+                    <ComboBox x:Name="CBUnidad" Height="30" FontSize="18" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="5" Margin="30,15,30,0">
