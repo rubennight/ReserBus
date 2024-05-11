@@ -32,7 +32,11 @@ namespace ReserBus.View
             UnidadesForm.IsOpen = UnidadesForm.IsOpen ? false : true;
             Overlay1.Visibility = UnidadesForm.IsOpen ? Visibility.Visible : Visibility.Hidden;
             Overlay2.Visibility = UnidadesForm.IsOpen ? Visibility.Visible : Visibility.Hidden;
-
+            if (!UnidadesForm.IsOpen)
+            {
+                Reset_Forms();
+                createRegistro = false;
+            }
         }
 
         private void Toggle_Conductores_Form()
@@ -40,6 +44,11 @@ namespace ReserBus.View
             ChoferesForm.IsOpen = ChoferesForm.IsOpen ? false : true;
             Overlay1.Visibility = ChoferesForm.IsOpen ? Visibility.Visible : Visibility.Hidden;
             Overlay2.Visibility = ChoferesForm.IsOpen ? Visibility.Visible : Visibility.Hidden;
+            if (!ChoferesForm.IsOpen)
+            {
+                Reset_Forms();
+                createRegistro = false;
+            }
         }
 
         private void Toggle_Datagrid(object sender, RoutedEventArgs e)
@@ -94,14 +103,14 @@ namespace ReserBus.View
         {
             Toggle_Conductores_Form();
             Reset_Forms();
-
+            createRegistro = true;
         }
 
         private void CrearUnidad(object sender, RoutedEventArgs e)
         {
             Toggle_Unidades_Form();
             Reset_Forms();
-
+            createRegistro = true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
