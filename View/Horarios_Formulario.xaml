@@ -67,7 +67,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Fecha y hora del viaje" FontSize="18" />
-                    <wpfTool:DateTimePicker Height="30" FontSize="18"  />
+                    <wpfTool:DateTimePicker Height="30" FontSize="18" ValueChanged="DateTimePicker_ValueChanged" x:Name="DTPFechaHoraSalida"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="4" Margin="30,20,30,0">
@@ -78,11 +78,11 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Margin="0,0,10,0">
                     <TextBlock Text="Conductor" FontSize="18" />
-                    <ComboBox x:Name="CBConductor" Height="30" FontSize="18" />
+                    <ComboBox x:Name="CBConductor" Height="30" FontSize="18" SelectionChanged="CBConductor_SelectionChanged"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0,0,10,0">
                     <TextBlock Text="Unidad" FontSize="18" />
-                    <ComboBox x:Name="CBUnidad" Height="30" FontSize="18" />
+                    <ComboBox x:Name="CBUnidad" Height="30" FontSize="18" SelectionChanged="CBUnidad_SelectionChanged"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="5" Margin="30,15,30,0">

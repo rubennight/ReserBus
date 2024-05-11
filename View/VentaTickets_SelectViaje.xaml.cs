@@ -142,15 +142,18 @@ namespace ReserBus.View
 
                 i++;
             }
-            
 
+            foreach (DataColumn column in tablaResultado.Columns)
+            {
+                Console.WriteLine("------------" + column.ColumnName);
+            }
         }
 
         private DataTable obtenRutaYPrecio(List<string> viajes)
         {
             string consulta = "\r\nSELECT STRING_AGG(d.ciudad,',') AS ruta_total, STRING_AGG(d.precio_base,',') AS precio_total\r\n" +
                 "FROM [dbo v_1.3].rutas AS r\r\n" +
-                "INNER JOIN [dbo v_1.3].destinos AS d ON d.id_destino = r.id_destino AND r.id_ruta = @viaje; ORDER BY ";
+                "INNER JOIN [dbo v_1.3].destinos AS d ON d.id_destino = r.id_destino AND r.id_ruta = @viaje; ";
             SqlCommand comandoSQL = new SqlCommand(consulta, conexionSql);
             SqlDataAdapter adaptadorSql = new SqlDataAdapter(comandoSQL);
             DataTable tablaResultado = new DataTable();//Tabla de las rutas y precios de todos los viajes coincidentes.

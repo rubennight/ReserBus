@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace ReserBus.View
 {
@@ -24,6 +25,13 @@ namespace ReserBus.View
     /// </summary>
     public partial class Horarios_Formulario : Page
     {
+        //Variables para la consulta insert.
+        string unidad;
+        string chofer;
+        string fechaHoraSalida;
+        string fechaHoraLlegada;
+        string consulta;
+
         private List<string> ciudadesSeleccionadas = new List<string>();
 
         SqlConnection conexionSql;
@@ -37,6 +45,7 @@ namespace ReserBus.View
             llenaSucursal();
             llenaChofer();
             llenaUnidad();
+            insertaNuevoViajeYRuta();
         }
 
 
@@ -106,13 +115,17 @@ namespace ReserBus.View
             SqlDataAdapter adaptadorSql = new SqlDataAdapter(consulta, conexionSql);
             DataTable tablaResultado = new DataTable();
             adaptadorSql.Fill(tablaResultado);
-            Sucursal.ItemsSource = tablaResultado.DefaultView;
-            Sucursal.SelectedValuePath = "id_unidad";
-            Sucursal.DisplayMemberPath = "modelo";
+            CBUnidad.ItemsSource = tablaResultado.DefaultView;
+            CBUnidad.SelectedValuePath = "id_unidad";
+            CBUnidad.DisplayMemberPath = "modelo";
         }
 
         private void insertaNuevoViajeYRuta() 
         {
+            
+            string chofer;
+            string fechaHoraSalida;
+            string fechaHoraLlegada;
             string consulta = "INSERT INTO [dbo v_1.3].viajes_programados\r\n" +
                 "(id_viaje_programado,id_unidad, id_chofer, fecha_hora_salida,fecha_hora_llegada_estimada,cupo)\r\n" +
                 "VALUES\r\n" +
@@ -139,6 +152,36 @@ namespace ReserBus.View
             //}
 
 
+        }
+
+        //Obtenemos el conductor seleccionado.
+        private void CBConductor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            chofer = CBConductor.SelectedValue.ToString();
+        }
+
+        //Obtenemos la fecha seleccionada.
+        private void DateTimePicker_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            string fecha = "";
+            string fechaLlegada = "";
+            DateTime? fechaNullable = DTPFechaHoraSalida.Value;
+            if (fechaNullable.HasValue)
+            {
+                DateTime fecha1 = fechaNullable.Value;
+                DateTime fecha2 = fecha1.AddDays(1);
+                fecha = fecha1.ToString("yyyy/MM/dd HH:mm");
+                fechaLlegada = fecha2.ToString("yyyy/MM/dd HH:mm");
+            }
+
+            Console.WriteLine(fecha +"     " +  fechaLlegada);
+
+        }
+
+        //Obtenemos la unidad seleccionada.
+        private void CBUnidad_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            unidad = CBUnidad.SelectedValue.ToString();
         }
     }
 }
