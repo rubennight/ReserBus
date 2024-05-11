@@ -28,7 +28,7 @@
             <TextBlock  FontFamily="Helvetica" Text="Registro de viaje programado" Grid.Column="0" FontSize="32" FontWeight="SemiBold" Padding="30,25,25,0" Grid.ColumnSpan="2" Margin="1,0,199,0" />
             <StackPanel Grid.Column="1" Margin="0,25,30,0">
                 <TextBlock Text="Sucursal" HorizontalAlignment="Right" Margin="0,0,0,5" />
-                <ComboBox x:Name="Sucursal" ItemsSource="{Binding Destinos}" DisplayMemberPath="destino" SelectedItem="{Binding SelectedDestino}" />
+                <ComboBox x:Name="CBSucursal" ItemsSource="{Binding Destinos}" DisplayMemberPath="destino" SelectedItem="{Binding SelectedDestino}" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
@@ -51,11 +51,11 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="0,0,10,0">
                 <TextBlock Text="Origen" FontSize="18" />
-                <ComboBox Height="30" FontSize="18" />
+                <ComboBox x:Name="CBOrigen" Height="30" FontSize="18" />
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="0,0,10,0">
                 <TextBlock Text="Destino" FontSize="18" />
-                <ComboBox Height="30" FontSize="18" />
+                <ComboBox x:Name="CBDestino" Height="30" FontSize="18" />
             </StackPanel>
             
         </Grid>

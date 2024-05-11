@@ -44,7 +44,8 @@ namespace ReserBus.View
                 "FROM [dbo v_1.3].viajes_programados AS v\r\n" +
                 "INNER JOIN [dbo v_1.3].rutas r ON v.id_viaje_programado = r.id_ruta\r\n" +
                 "INNER JOIN [dbo v_1.3].destinos d ON d.id_destino = r.id_destino\r\n" +
-                "INNER JOIN [dbo v_1.3].unidades u ON u.id_unidad = v.id_unidad\r\nWHERE CONVERT(DATE, v.fecha_hora_salida) >= CONVERT(DATE,GETDATE())";
+                "INNER JOIN [dbo v_1.3].unidades u ON u.id_unidad = v.id_unidad\r\n" +
+                "WHERE CONVERT(DATE, v.fecha_hora_salida) >= CONVERT(DATE,GETDATE())";
             try
             {
                 SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionSql);
