@@ -33,8 +33,6 @@ namespace ReserBus.View
         string fechaHoraLlegada;
         string consulta;
 
-        private List<string> ciudadesSeleccionadas = new List<string>();
-
         SqlConnection conexionSql;
         public Horarios_Formulario()
         {
@@ -46,7 +44,6 @@ namespace ReserBus.View
             llenaSucursal();
             llenaChofer();
             llenaUnidad();
-            insertaNuevoViajeYRuta();
         }
 
 
@@ -131,6 +128,12 @@ namespace ReserBus.View
                 "(id_viaje_programado,id_unidad, id_chofer, fecha_hora_salida,fecha_hora_llegada_estimada,cupo)\r\n" +
                 "VALUES\r\n" +
                 "(NEWID(),@unidad,@chofer,@fechaHoraSalida,@fechaHoraLlegada,1)";
+
+
+            View.Horarios horarios= new View.Horarios();
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+
+            mainWindow.Main.Content = horarios;
         }
 
 
@@ -167,9 +170,9 @@ namespace ReserBus.View
             View.Horarios horarios = new View.Horarios();
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
 
+            mainWindow.Main.Content = horarios;
         }
 
-            mainWindow.Main.Content = horarios;
         //Obtenemos el conductor seleccionado.
         private void CBConductor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
