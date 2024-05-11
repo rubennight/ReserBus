@@ -33,7 +33,7 @@ namespace ReserBus.View
         string fechaHoraLlegada;
         string consulta;
 
-        private List<string> ciudadesSeleccionadas = new List<string>();
+        
 
         SqlConnection conexionSql;
         public Horarios_Formulario()
@@ -46,7 +46,6 @@ namespace ReserBus.View
             llenaSucursal();
             llenaChofer();
             llenaUnidad();
-            insertaNuevoViajeYRuta();
         }
 
 
@@ -123,14 +122,19 @@ namespace ReserBus.View
 
         private void insertaNuevoViajeYRuta(object sender, RoutedEventArgs e)
         {
-            
-            string chofer;
-            string fechaHoraSalida;
-            string fechaHoraLlegada;
-            string consulta = "INSERT INTO [dbo v_1.3].viajes_programados\r\n" +
+            consulta = "INSERT INTO [dbo v_1.3].viajes_programados\r\n" +
                 "(id_viaje_programado,id_unidad, id_chofer, fecha_hora_salida,fecha_hora_llegada_estimada,cupo)\r\n" +
                 "VALUES\r\n" +
                 "(NEWID(),@unidad,@chofer,@fechaHoraSalida,@fechaHoraLlegada,1)";
+            SqlCommand comandoSql = new SqlCommand(consulta, conexionSql);
+            SqlDataAdapter adaptadorSql = new SqlDataAdapter(comandoSql);
+            DataTable tablaResultado = new DataTable();
+            comandoSql.Parameters.AddWithValue("unidad",unidad);
+            comandoSql.Parameters.AddWithValue("chofer",chofer);
+            comandoSql.Parameters.AddWithValue("fechaHoraSalida", fechaHoraSalida);
+            comandoSql.Parameters.AddWithValue("fechaHoraLlegada", fechaHoraLlegada);
+            adaptadorSql.Fill(tablaResultado);
+            
         }
 
 
