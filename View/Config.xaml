@@ -8,37 +8,67 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Config">
 
-    <Grid Background="White">
+    <Grid Background="White" Margin="0,50,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="33*" />
             <ColumnDefinition Width="66*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <Button Click="Toggle_Conductores_Form" HorizontalContentAlignment="Left" Padding="15,0,0,0" Width="Auto" Height="50" Background="White" Style="{StaticResource HoverButtonStyle}">
+            <Button Click="Toggle_Datagrid" HorizontalContentAlignment="Left" Padding="15,0,0,0" Width="Auto" Height="50" Background="White" Style="{StaticResource HoverButtonStyle}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Assets/people-fill.png" Width="30" Margin="0,0,20,0"/>
                     <TextBlock Text="Conductores" VerticalAlignment="Center" FontSize="15"/>
                 </StackPanel>
             </Button>
-            <Button Click="Toggle_Unidades_Form" HorizontalContentAlignment="Left" Padding="15,0,0,0" Width="Auto" Height="50" Background="White" Style="{StaticResource HoverButtonStyle}">
+            <Button Click="Toggle_Datagrid" HorizontalContentAlignment="Left" Padding="15,0,0,0" Width="Auto" Height="50" Background="White" Style="{StaticResource HoverButtonStyle}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Assets/bus-front.png" Width="30" Margin="0,0,20,0"/>
                     <TextBlock Text="Unidades" VerticalAlignment="Center" FontSize="15"/>
                 </StackPanel>
             </Button>
         </StackPanel>
-        <DataGrid Grid.Column="1" Margin="15,15,15,15" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" Visibility="Hidden">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Modelo" Width="1*" />
-                <DataGridTextColumn Header="# Asientos" Width="1*" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <DataGrid Grid.Column="1" Margin="15,15,15,15" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Nombre" Width="1*" />
-                <DataGridTextColumn Header="Apellidos" Width="1*" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Visibility="Hidden" Name="UnidadesDatagrid">
+            <Button
+                Margin="0,10,15,0"
+                Padding="32,0,32,0"
+                Background="#279700"
+                BorderBrush="#00FFFFFF"
+                Height="30"
+                Width="150"
+                HorizontalAlignment="Right"
+                Click="CrearUnidad">
+                <Button.Content>
+                    <TextBlock Foreground="White" Text="Guardar" />
+                </Button.Content>
+            </Button>
+            <DataGrid Margin="15,15,15,15" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" Height="400">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Modelo" Width="1*" />
+                    <DataGridTextColumn Header="# Asientos" Width="1*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Name="ConductoresDatagrid" Visibility="Visible">
+            <Button
+                Margin="0,10,15,0"
+                Padding="32,0,32,0"
+                Background="#279700"
+                BorderBrush="#00FFFFFF"
+                Height="30"
+                Width="150"
+                HorizontalAlignment="Right"
+                Click="CrearConductor">
+                <Button.Content>
+                    <TextBlock Foreground="White" Text="Guardar" />
+                </Button.Content>
+            </Button>
+            <DataGrid Margin="15,15,15,15" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" Height="400">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre" Width="1*" />
+                    <DataGridTextColumn Header="Apellidos" Width="1*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
         <Grid Grid.Column="0" Name="Overlay1" Background="#80000000" Opacity="0.3" Visibility="Hidden"/>
         <Grid Grid.Column="1" Name="Overlay2" Background="#80000000" Opacity="0.3" Visibility="Hidden"/>
         <Popup Name="ChoferesForm" IsOpen="False" Placement="Center">
@@ -47,20 +77,21 @@
                     <DropShadowEffect ShadowDepth="5" Color="Black" Opacity="0.5"/>
                 </Border.Effect>
                 <StackPanel Margin="10">
-                    <TextBlock Text="Crear/Actualizar Unidad" FontWeight="Bold" Margin="0 0 0 10"/>
+                    <TextBlock Text="Crear/Actualizar Conductores" FontWeight="Bold" Margin="0 0 0 10"/>
                     <StackPanel>
-                        <TextBlock Text="Modelo" FontSize="18" />
-                        <TextBox Style="{StaticResource TextBoxStyle}" />
+                        <TextBlock Text="Nombre" FontSize="18" />
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtNombre"/>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Text="Cantidad de asientos" FontSize="18" />
-                        <TextBox Style="{StaticResource TextBoxStyle}" />
+                        <TextBlock Text="Apellidos" FontSize="18" />
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtApellidos"/>
                     </StackPanel>
                     <Button
-                        Margin="0,0,30,0"
+                        Margin="0,30,30,0"
                         Padding="32,0,32,0"
                         Background="#279700"
-                        BorderBrush="#00FFFFFF">
+                        BorderBrush="#00FFFFFF"
+                        Height="30">
                         <Button.Content>
                             <TextBlock Foreground="White" Text="Guardar" />
                         </Button.Content>
@@ -70,7 +101,8 @@
                         Padding="32,0,32,0"
                         Background="#AE0000"
                         BorderBrush="#00FFFFFF"
-                        Click="Toggle_Conductores_Form">
+                        Click="Button_Click"
+                        Height="30">
                         <Button.Content>
                             <TextBlock Foreground="White" Text="Cancelar" />
                         </Button.Content>
@@ -87,17 +119,18 @@
                     <TextBlock Text="Crear/Actualizar Unidad" FontWeight="Bold" Margin="0 0 0 10"/>
                     <StackPanel>
                         <TextBlock Text="Modelo" FontSize="18" />
-                        <TextBox Style="{StaticResource TextBoxStyle}" />
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtModelo"/>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="Cantidad de asientos" FontSize="18" />
-                        <TextBox Style="{StaticResource TextBoxStyle}" />
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtCantidadAsientos"/>
                     </StackPanel>
                     <Button
-                        Margin="0,0,30,0"
+                        Margin="0,30,30,0"
                         Padding="32,0,32,0"
                         Background="#279700"
-                        BorderBrush="#00FFFFFF">
+                        BorderBrush="#00FFFFFF"
+                        Height="30">
                         <Button.Content>
                             <TextBlock Foreground="White" Text="Guardar" />
                         </Button.Content>
@@ -107,7 +140,8 @@
                         Padding="32,0,32,0"
                         Background="#AE0000"
                         BorderBrush="#00FFFFFF"
-                        Click="Toggle_Unidades_Form">
+                        Click='Button_Click_1'
+                        Height="30">
                         <Button.Content>
                             <TextBlock Foreground="White" Text="Cancelar" />
                         </Button.Content>
