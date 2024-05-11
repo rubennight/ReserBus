@@ -10,5 +10,16 @@
             <Setter Property="FontSize" Value="18" />
             <Setter Property="Margin" Value="0,10,40,0" />
         </Style>
+        <Style TargetType="Button" x:Key="HoverButtonStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White" />
+            <!-- Color normal -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <!-- Color hover -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

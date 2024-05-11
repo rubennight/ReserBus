@@ -36,14 +36,9 @@
                         <Image Source="/Assets/clock.png" Width="30" Height="30" />
                     </Button.Content>
                 </Button>
-                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
+                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF" Click="Button_Click_3">
                     <Button.Content>
-                        <Image Source="/Assets/bus-front.png" Width="30" Height="30" />
-                    </Button.Content>
-                </Button>
-                <Button Padding="0,15,0,15" Background="#00FFFFFF" BorderBrush="#00FFFFFF">
-                    <Button.Content>
-                        <Image Source="/Assets/people.png" Width="30" Height="30"/>
+                        <Image Source="/Assets/config.png" Width="30" Height="30" />
                     </Button.Content>
                 </Button>
             </StackPanel>
