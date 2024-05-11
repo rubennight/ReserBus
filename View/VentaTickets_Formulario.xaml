@@ -50,15 +50,15 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Origen" FontSize="18" />
-                <TextBlock FontWeight="SemiBold" FontSize="18" x:Name="txtOrigen" Text="Tlaltenango, Zacatecas" />
+                <TextBlock FontWeight="SemiBold" FontSize="18" x:Name="txtOrigen" Text="" />
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Destino" FontSize="18" />
-                <TextBlock FontWeight="SemiBold" FontSize="18" Text="Guadalajara, Jalisco" />
+                <TextBlock FontWeight="SemiBold" FontSize="18" Text="" Name="txtDestino" />
             </StackPanel>
             <StackPanel Grid.Column="2">
                 <TextBlock Text="Fecha y hora de salida" FontSize="18" />
-                <TextBlock FontWeight="SemiBold" FontSize="18" Text="" />
+                <TextBlock FontWeight="SemiBold" FontSize="18" Text="" Name="txtFechaSalida" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" Margin="30,0,30,0">
@@ -69,7 +69,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Costo" FontSize="18" />
-                <TextBlock FontWeight="SemiBold" FontSize="18" Text="$ 450.00" />
+                <TextBlock FontWeight="SemiBold" FontSize="18" Text="" Name="txtCosto" />
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Asiento" FontSize="18" />
