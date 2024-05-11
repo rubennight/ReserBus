@@ -160,14 +160,13 @@ namespace ReserBus.View
         {
             if (sender is DataGrid dataGrid && dataGrid.SelectedItem != null)
             {
-                // Reemplazar el modelo
-                //    if (dataGrid.SelectedItem is MODELO unidadSelected)
-                //    {
-                //        Toggle_Unidades_Form()
-                //        txtModelo.Text = unidadSelected.modelo;
-                //        txtCantidadAsientos.Text = unidadSelected.cantidadAsientos;
-                //
-                //    }
+                   if (dataGrid.SelectedItem is Unidad unidadSelected)
+                   {
+                        Toggle_Unidades_Form();
+                        txtModelo.Text = unidadSelected.Modelo;
+                        txtCantidadAsientos.Text = unidadSelected.NumeroAsientos.ToString();
+                
+                   }
             }
 
 
@@ -177,14 +176,13 @@ namespace ReserBus.View
         {
             if (sender is DataGrid dataGrid && dataGrid.SelectedItem != null)
             {
-                //// Reemplazar el modelo
-                //if (dataGrid.SelectedItem is MODELO conductorSelected)
-                //{
-                //    Toggle_Conductores_Form()
-                //    txtNombre.Text = conductorSelected.nombre;
-                //    txtApellidos.Text = conductorSelected.apellidos;
-                //
-                //}
+                if (dataGrid.SelectedItem is Conductor conductorSelected)
+                {
+                    Toggle_Conductores_Form();
+                    txtNombre.Text = conductorSelected.Nombre;
+                    txtApellidos.Text = conductorSelected.Apellidos;
+                
+                }
             }
 
 

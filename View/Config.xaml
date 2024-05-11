@@ -61,7 +61,7 @@
             Orientation="Vertical"
             Visibility="Hidden">
             <Button
-                Width="150"
+                Width="200"
                 Height="30"
                 Margin="0,10,15,0"
                 Padding="32,0,32,0"
@@ -70,7 +70,7 @@
                 BorderBrush="#00FFFFFF"
                 Click="CrearUnidad">
                 <Button.Content>
-                    <TextBlock Foreground="White" Text="Guardar" />
+                    <TextBlock Foreground="White" Text="Nueva Unidad" />
                 </Button.Content>
             </Button>
             <DataGrid
@@ -81,7 +81,8 @@
                 DataContext="{Binding}"
                 FontSize="18"
                 IsReadOnly="True"
-                ItemsSource="{Binding UnidadesData}">
+                ItemsSource="{Binding UnidadesData}"
+                MouseDoubleClick="SetUnidadesForm">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="1*"
@@ -100,7 +101,7 @@
             Orientation="Vertical"
             Visibility="Visible">
             <Button
-                Width="150"
+                Width="200"
                 Height="30"
                 Margin="0,10,15,0"
                 Padding="32,0,32,0"
@@ -109,7 +110,7 @@
                 BorderBrush="#00FFFFFF"
                 Click="CrearConductor">
                 <Button.Content>
-                    <TextBlock Foreground="White" Text="Guardar" />
+                    <TextBlock Foreground="White" Text="Nuevo Conductor" />
                 </Button.Content>
             </Button>
             <DataGrid
@@ -120,7 +121,8 @@
                 DataContext="{Binding}"
                 FontSize="18"
                 IsReadOnly="True"
-                ItemsSource="{Binding ConductoresData}">
+                ItemsSource="{Binding ConductoresData}"
+                MouseDoubleClick="SetConductoresForm">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="1*"
