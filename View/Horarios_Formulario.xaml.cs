@@ -24,7 +24,7 @@ namespace ReserBus.View
     /// </summary>
     public partial class Horarios_Formulario : Page
     {
-        private List<string> ciudadesSeleccionadas = new List<string>();
+        private List<DataRowView> ciudadesSeleccionadas = new List<DataRowView>();
 
         SqlConnection conexionSql;
         public Horarios_Formulario()
@@ -43,7 +43,7 @@ namespace ReserBus.View
 
         private void llenaDestino()
         {
-            
+
 
             try
             {
@@ -96,8 +96,8 @@ namespace ReserBus.View
             {
                 Console.WriteLine("Ocurrió un error: " + ex.Message);
             }
-            
-            
+
+
         }
 
         private void llenaUnidad()
@@ -106,39 +106,54 @@ namespace ReserBus.View
             SqlDataAdapter adaptadorSql = new SqlDataAdapter(consulta, conexionSql);
             DataTable tablaResultado = new DataTable();
             adaptadorSql.Fill(tablaResultado);
-            Sucursal.ItemsSource = tablaResultado.DefaultView;
-            Sucursal.SelectedValuePath = "id_unidad";
-            Sucursal.DisplayMemberPath = "modelo";
+            CBUnidad.ItemsSource = tablaResultado.DefaultView;
+            CBUnidad.SelectedValuePath = "id_unidad";
+            CBUnidad.DisplayMemberPath = "modelo";
         }
 
-        private void insertaNuevoViajeYRuta() 
+        private void insertaNuevoViajeYRuta(object sender, RoutedEventArgs e)
         {
             string consulta = "INSERT INTO [dbo v_1.3].viajes_programados\r\n" +
                 "(id_viaje_programado,id_unidad, id_chofer, fecha_hora_salida,fecha_hora_llegada_estimada,cupo)\r\n" +
                 "VALUES\r\n" +
                 "(NEWID(),@unidad,@chofer,@fechaHoraSalida,@fechaHoraLlegada,1)";
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         private void DoubleClickHandler(object sender, MouseButtonEventArgs e)
         {
-            //if (sender is DataGrid dataGrid && dataGrid.SelectedItem != null)
-            //{
-            //    // Reemplazar el modelo
-            //    if (dataGrid.SelectedItem is MODELO destinoSelected)
-            //    {
-            //        // Almacenar la ciudad del elemento seleccionado en el array
-            //        ciudadesSeleccionadas.Add(destinoSelected.Ciudad);
-            //
-            //        // Actualizar el texto de txtDestinosSeleccionados con las ciudades unidas mediante " - "
-            //        txtDestinosSeleccionados.Text = string.Join(" - ", ciudadesSeleccionadas);
-            //    }
-            //}
+            if (sender is DataGrid dataGrid && dataGrid.SelectedItem != null)
+            {
+                // Reemplazar el modelo
+                var selectedItem = dataGrid.SelectedItem;
+                DataRowView rowView = (DataRowView)dataGrid.SelectedItem;
 
 
+                ciudadesSeleccionadas.Add(rowView);
+
+                // Proyectar solo los valores de "ciudad" y unirlos en una cadena
+                var ciudades = ciudadesSeleccionadas.Select(row => row["ciudad"].ToString());
+
+                txtDestinosSeleccionados.Text = string.Join(" - ", ciudades);
+
+
+            }
+
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ciudadesSeleccionadas.Clear();
+            txtDestinosSeleccionados.Text = "";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            View.Horarios horarios = new View.Horarios();
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+
+            mainWindow.Main.Content = horarios;
         }
     }
 }
