@@ -16,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit;
 
 namespace ReserBus.View
 {
@@ -26,18 +25,13 @@ namespace ReserBus.View
     public partial class Horarios_Formulario : Page
     {
         private List<DataRowView> ciudadesSeleccionadas = new List<DataRowView>();
-        //Variables para la consulta insert.
+        Guid nuevoGuid;
+        string idViaje;
         string unidad;
         string chofer;
         string fechaHoraSalida;
         string fechaHoraLlegada;
         string consulta;
-
-<<<<<<< HEAD
-        
-
-=======
->>>>>>> 10e0370f1f493897e1a57f2b46699e63e5d90390
         SqlConnection conexionSql;
         public Horarios_Formulario()
         {
@@ -125,29 +119,71 @@ namespace ReserBus.View
 
         private void insertaNuevoViajeYRuta(object sender, RoutedEventArgs e)
         {
-            consulta = "INSERT INTO [dbo v_1.3].viajes_programados\r\n" +
-                "(id_viaje_programado,id_unidad, id_chofer, fecha_hora_salida,fecha_hora_llegada_estimada,cupo)\r\n" +
-                "VALUES\r\n" +
-                "(NEWID(),@unidad,@chofer,@fechaHoraSalida,@fechaHoraLlegada,1)";
-<<<<<<< HEAD
-            SqlCommand comandoSql = new SqlCommand(consulta, conexionSql);
-            SqlDataAdapter adaptadorSql = new SqlDataAdapter(comandoSql);
-            DataTable tablaResultado = new DataTable();
-            comandoSql.Parameters.AddWithValue("unidad",unidad);
-            comandoSql.Parameters.AddWithValue("chofer",chofer);
-            comandoSql.Parameters.AddWithValue("fechaHoraSalida", fechaHoraSalida);
-            comandoSql.Parameters.AddWithValue("fechaHoraLlegada", fechaHoraLlegada);
-            adaptadorSql.Fill(tablaResultado);
-            
-=======
+            try
+            {
+                // Verificar si se ha seleccionado un valor en el DateTimePicker
+                if (!DTPFechaHoraSalida.Value.HasValue)
+                {
+                    MessageBox.Show("Debe seleccionar una fecha y hora de salida.");
+                    return;
+                }
+
+                DateTime fechaHoraSalida = Convert.ToDateTime(DTPFechaHoraSalida.Value);
+
+                nuevoGuid = Guid.NewGuid();
+                idViaje = nuevoGuid.ToString();
+                consulta = "INSERT INTO [dbo v_1.3].viajes_programados\r\n" +
+                    "(id_viaje_programado,id_unidad, id_chofer, fecha_hora_salida,fecha_hora_llegada_estimada,cupo)\r\n" +
+                    "VALUES\r\n" +
+                    "(@viaje,@unidad,@chofer,@fechaHoraSalida,@fechaHoraLlegada,1)";
+
+                SqlCommand comandoSql = new SqlCommand(consulta, conexionSql);
+                conexionSql.Open();
+                Console.WriteLine("1 " + idViaje);
+                Console.WriteLine("2 " + unidad);
+                Console.WriteLine("3 " + chofer);
+                Console.WriteLine("4 " + fechaHoraSalida);
+                Console.WriteLine("5 " + fechaHoraLlegada);
+                comandoSql.Parameters.AddWithValue("@viaje", idViaje);
+                comandoSql.Parameters.AddWithValue("@unidad", unidad);
+                comandoSql.Parameters.AddWithValue("@chofer", chofer);
+                comandoSql.Parameters.AddWithValue("@fechaHoraSalida", fechaHoraSalida);
+                comandoSql.Parameters.AddWithValue("@fechaHoraLlegada", fechaHoraSalida);
+                comandoSql.ExecuteNonQuery();
+                conexionSql.Close();
 
 
-            View.Horarios horarios= new View.Horarios();
-            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                // Insertar en la tabla rutas
+                string consultaInsertarRutas = "INSERT INTO [dbo v_1.3].rutas (id_ruta, id_destino) VALUES (@idViajeProgramado, @idDestino)";
+                SqlCommand comandoInsertarRutas = new SqlCommand(consultaInsertarRutas, conexionSql);
+                conexionSql.Open();
+                foreach (DataRowView ciudad in ciudadesSeleccionadas)
+                {
+                    comandoInsertarRutas.Parameters.Clear(); // Limpiar los parámetros antes de cada iteración
+                    comandoInsertarRutas.Parameters.AddWithValue("@idViajeProgramado", idViaje);
+                    comandoInsertarRutas.Parameters.AddWithValue("@idDestino", ciudad["id_destino"]);
+                    comandoInsertarRutas.ExecuteNonQuery();
+                }
+                conexionSql.Close();
 
-            mainWindow.Main.Content = horarios;
->>>>>>> 10e0370f1f493897e1a57f2b46699e63e5d90390
+                MessageBox.Show("Viaje y rutas insertados correctamente.");
+            }
+            finally
+            {
+                if (conexionSql.State == ConnectionState.Open)
+                {
+                    conexionSql.Close();
+                }
+
+                View.Horarios horarios = new View.Horarios();
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+
+                mainWindow.Main.Content = horarios;
+
+            }
         }
+
+
 
 
         private void DoubleClickHandler(object sender, MouseButtonEventArgs e)

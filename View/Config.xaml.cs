@@ -26,6 +26,9 @@ namespace ReserBus.View
     public partial class Config : Page
     {
 
+        DataRowView UnidadSelected;
+        DataRowView ConductorSelected;
+
         Boolean createRegistro;
 
         private List<Conductor> _conductores;
@@ -167,6 +170,11 @@ namespace ReserBus.View
                         txtCantidadAsientos.Text = unidadSelected.NumeroAsientos.ToString();
                 
                    }
+
+                var selectedItem = dataGrid.SelectedItem;
+                DataRowView rowView = (DataRowView)dataGrid.SelectedItem;
+
+                UnidadSelected = rowView;
             }
 
 
@@ -183,6 +191,11 @@ namespace ReserBus.View
                     txtApellidos.Text = conductorSelected.Apellidos;
                 
                 }
+
+                var selectedItem = dataGrid.SelectedItem;
+                DataRowView rowView = (DataRowView)dataGrid.SelectedItem;
+
+                ConductorSelected = rowView;
             }
 
 

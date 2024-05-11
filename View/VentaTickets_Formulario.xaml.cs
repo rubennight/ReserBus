@@ -36,24 +36,25 @@ namespace ReserBus.View
             string miConexion = ConfigurationManager.ConnectionStrings["ReserBus.Properties.Settings.dbo_v_1_3ConnectionString"].ConnectionString;
 
             miConexionSql = new SqlConnection(miConexion);
+
+            txtOrigen.Text = selectedItem["origen"].ToString();
+            txtDestino.Text = selectedItem["destino"].ToString();
+            txtFechaSalida.Text = selectedItem["fecha_hora_salida"].ToString();
+            txtCosto.Text = "$ " + selectedItem["precio"].ToString();
         }
 
-        public void InsertarVentaTicket( Decimal precioTotal, Int32 numAsiento, string nombre, string apellidos, string telefono)
+        public void InsertarVentaTicket(string nombre, string apellidos, Int64 telefono, string origen, string destino, DateTime fechaSalida, Decimal costo, Guid idViajeProgramado)
         {
             //primero generamos un id para el boleto, id para el pasajero y luego la fecha actual:
             Guid idBoleto = Guid.NewGuid();
             Guid idPasajero = Guid.NewGuid();
             DateTime fechaVenta = DateTime.Now;
 
-            string destino = selectedItem["destino"].ToString();
-            string origen = selectedItem["origen"].ToString();
-            DateTime fechaSalida = Convert.ToDateTime(selectedItem["fecha_hora_salida"]);
-            Decimal costo =  Convert.ToDecimal(selectedItem["precio"].ToString());
             try
             {
                 miConexionSql.Open();
                 //primero insertamos al pasajero 
-                string queryInsertPasajero = "INSERT INTO pasajeros (id_pasajero, nombre, apellidos, telefono) VALUES (@IdPasajero, @Nombre, @Apellidos, @Telefono)"; ;
+                string queryInsertPasajero = "INSERT INTO [dbo v_1.3].pasajeros (id_pasajero, nombre, apellidos, telefono) VALUES (@IdPasajero, @Nombre, @Apellidos, @Telefono)"; ;
                 SqlCommand commandInsertPasajero = new SqlCommand(queryInsertPasajero, miConexionSql);
 
                 commandInsertPasajero.Parameters.AddWithValue("@IdPasajero", idPasajero);
@@ -63,13 +64,13 @@ namespace ReserBus.View
 
                 commandInsertPasajero.ExecuteNonQuery();
 
-                string queryInsertBoleto = "INSERT INTO boletos (id_boleto, id_pasajero, id_ruta, destino_origen_nombre, destino_final_nombre, fecha_venta, precio_total) \r\n VALUES (@IdBoleto, @IdPasajero, @IdRuta, @DestinoOrigen, @DestinoFinal, @FechaVenta, @PrecioTotal)";
+                string queryInsertBoleto = "INSERT INTO [dbo v_1.3].boletos (id_boleto, id_pasajero, id_ruta, destino_origen_nombre, destino_final_nombre, fecha_venta, precio_total) \r\n VALUES (@IdBoleto, @IdPasajero, @IdRuta, @DestinoOrigen, @DestinoFinal, @FechaVenta, @PrecioTotal)";
 
                 SqlCommand commandInsertBoleto = new SqlCommand(queryInsertBoleto, miConexionSql);
 
                 commandInsertBoleto.Parameters.AddWithValue("@IdBoleto", idBoleto);
                 commandInsertBoleto.Parameters.AddWithValue("@IdPasajero", idPasajero);
-                commandInsertBoleto.Parameters.AddWithValue("@IdRuta", idBoleto);
+                commandInsertBoleto.Parameters.AddWithValue("@IdRuta", idViajeProgramado);
                 commandInsertBoleto.Parameters.AddWithValue("@DestinoOrigen", origen);
                 commandInsertBoleto.Parameters.AddWithValue("@DestinoFinal", destino);
                 commandInsertBoleto.Parameters.AddWithValue("@FechaVenta", fechaVenta);
@@ -84,6 +85,11 @@ namespace ReserBus.View
             finally
             {
                 miConexionSql.Close();
+
+                View.Home home= new View.Home();
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+
+                mainWindow.Main.Content = home;
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -93,6 +99,22 @@ namespace ReserBus.View
 
             mainWindow.Main.Content = selectViaje;
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            string nombre = txtNombre.Text;
+            string apellidos = txtApellidos.Text;
+            Int64 telefono = txtTelefono.Text == "" ? 0 : Convert.ToInt64(txtTelefono.Text);
+            string origen = txtOrigen.Text;
+            string destino = txtDestino.Text;
+            DateTime fechaSalida = Convert.ToDateTime(txtFechaSalida.Text);
+            Decimal costo = Convert.ToDecimal(txtCosto.Text.Replace("$", "")); // Suponiendo que el texto incluye el símbolo '$'
+
+            Guid idViajeProgramado = (Guid)selectedItem["id_viaje_programado"];
+
+
+            InsertarVentaTicket(nombre, apellidos, telefono, origen, destino, fechaSalida, costo, idViajeProgramado);
         }
     }
 }
