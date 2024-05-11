@@ -33,23 +33,26 @@ namespace ReserBus.View
             string conexion = ConfigurationManager.ConnectionStrings["ReserBus.Properties.Settings.dbo_v_1_3ConnectionString"].ConnectionString;
             conexionSql = new SqlConnection(conexion);
             Console.WriteLine(conexion);
-            llenaOrigen();
             llenaDestino();
             llenaSucursal();
-            llenaConductor();
+            llenaChofer();
+            llenaUnidad();
         }
 
-        private void llenaOrigen() 
+
+
+        private void llenaDestino()
         {
+            
+
             try
             {
-                string consulta = "select * from [dbo v_1.3].destinos";
+                string consulta = "select d.id_destino,d.estado, d.ciudad, d.precio_base from [dbo v_1.3].destinos d";
                 SqlDataAdapter adaptadorSql = new SqlDataAdapter(consulta, conexionSql);
                 DataTable tablaResultado = new DataTable();
                 adaptadorSql.Fill(tablaResultado);
-                Origen.DisplayMemberPath = "ciudad";
-                Origen.SelectedValuePath = "id_destino";
-                Origen.ItemsSource = tablaResultado.DefaultView;
+                DGDestinos.SelectedValuePath = "id_destino";
+                DGDestinos.ItemsSource = tablaResultado.DefaultView;
             }
             catch (SqlException ex)
             {
@@ -59,17 +62,7 @@ namespace ReserBus.View
             {
                 Console.WriteLine("Ocurrió un error: " + ex.Message);
             }
-        }
 
-        private void llenaDestino()
-        {
-            string consulta = "SELECT * FROM [dbo v_1.3].destinos";
-            SqlDataAdapter adaptadorSql = new SqlDataAdapter(consulta, conexionSql);
-            DataTable tablaResultado = new DataTable();
-            adaptadorSql.Fill(tablaResultado);
-            Destino.DisplayMemberPath = "ciudad";
-            Destino.SelectedValuePath = "id_destino";
-            Destino.ItemsSource = tablaResultado.DefaultView;
         }
 
         private void llenaSucursal()
@@ -83,11 +76,11 @@ namespace ReserBus.View
             Sucursal.DisplayMemberPath = "ciudad";
         }
 
-        private void llenaConductor()
+        private void llenaChofer()
         {
             try
             {
-                string consulta = "select c.id_chofer, (c.nombre+' '+ c.apellidos) as nombre_completo from [dbo v_1.3].choferes c";
+                string consulta = "select c.id_chofer, (c.nombre+', '+ c.apellidos) as nombre_completo from [dbo v_1.3].choferes c";
                 SqlDataAdapter adaptadorSql = new SqlDataAdapter(consulta, conexionSql);
                 DataTable tablaResultado = new DataTable();
                 adaptadorSql.Fill(tablaResultado);
@@ -116,6 +109,14 @@ namespace ReserBus.View
             Sucursal.ItemsSource = tablaResultado.DefaultView;
             Sucursal.SelectedValuePath = "id_unidad";
             Sucursal.DisplayMemberPath = "modelo";
+        }
+
+        private void insertaNuevoViajeYRuta() 
+        {
+            string consulta = "INSERT INTO [dbo v_1.3].viajes_programados\r\n" +
+                "(id_viaje_programado,id_unidad, id_chofer, fecha_hora_salida,fecha_hora_llegada_estimada,cupo)\r\n" +
+                "VALUES\r\n" +
+                "(NEWID(),@unidad,@chofer,@fechaHoraSalida,@fechaHoraLlegada,1)";
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
