@@ -33,8 +33,11 @@ namespace ReserBus.View
         string fechaHoraLlegada;
         string consulta;
 
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> 10e0370f1f493897e1a57f2b46699e63e5d90390
         SqlConnection conexionSql;
         public Horarios_Formulario()
         {
@@ -126,6 +129,7 @@ namespace ReserBus.View
                 "(id_viaje_programado,id_unidad, id_chofer, fecha_hora_salida,fecha_hora_llegada_estimada,cupo)\r\n" +
                 "VALUES\r\n" +
                 "(NEWID(),@unidad,@chofer,@fechaHoraSalida,@fechaHoraLlegada,1)";
+<<<<<<< HEAD
             SqlCommand comandoSql = new SqlCommand(consulta, conexionSql);
             SqlDataAdapter adaptadorSql = new SqlDataAdapter(comandoSql);
             DataTable tablaResultado = new DataTable();
@@ -135,6 +139,14 @@ namespace ReserBus.View
             comandoSql.Parameters.AddWithValue("fechaHoraLlegada", fechaHoraLlegada);
             adaptadorSql.Fill(tablaResultado);
             
+=======
+
+
+            View.Horarios horarios= new View.Horarios();
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+
+            mainWindow.Main.Content = horarios;
+>>>>>>> 10e0370f1f493897e1a57f2b46699e63e5d90390
         }
 
 
@@ -171,9 +183,9 @@ namespace ReserBus.View
             View.Horarios horarios = new View.Horarios();
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
 
+            mainWindow.Main.Content = horarios;
         }
 
-            mainWindow.Main.Content = horarios;
         //Obtenemos el conductor seleccionado.
         private void CBConductor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
