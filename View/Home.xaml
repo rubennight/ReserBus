@@ -71,7 +71,8 @@
             AutoGenerateColumns="False"
             DataContext="{Binding}"
             FontSize="18"
-            ItemsSource="{Binding SalidasData}">
+            ItemsSource="{Binding SalidasData}"
+            IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="15*"
@@ -107,7 +108,8 @@
             AutoGenerateColumns="False"
             DataContext="{Binding}"
             FontSize="18"
-            ItemsSource="{Binding LlegadasData}">
+            ItemsSource="{Binding LlegadasData}"
+            IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="25*"

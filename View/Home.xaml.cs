@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Configuration;
 using System.Data.SqlClient;
 using ReserBus.ViewModel;
+using ReserBus.Model;
 
 namespace ReserBus.View
 {
@@ -36,5 +37,8 @@ namespace ReserBus.View
 
             mainWindow.Main.Content = homePage;
         }
+
+        
     }
 }
+

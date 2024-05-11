@@ -71,8 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Conductor.cs" />
     <Compile Include="Model\ProximaLlegada.cs" />
     <Compile Include="Model\ProximaSalida.cs" />
+    <Compile Include="Model\Unidad.cs" />
     <Compile Include="ReserBusDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -84,6 +86,9 @@
       <DependentUpon>ReserBusDB1_3DataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="View\Config.xaml.cs">
+      <DependentUpon>Config.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -111,6 +116,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Config.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,11 +193,18 @@
   <ItemGroup>
     <Resource Include="Assets\people.png" />
     <Resource Include="Assets\clock.png" />
-    <Resource Include="Assets\bus-front.png" />
     <Resource Include="Assets\home.png" />
     <Resource Include="Assets\tcket.png" />
     <Resource Include="Assets\logo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\bus-front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\people-fill.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReserBus.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -23,6 +24,8 @@ namespace ReserBus.View
     /// </summary>
     public partial class Horarios_Formulario : Page
     {
+        private List<string> ciudadesSeleccionadas = new List<string>();
+
         SqlConnection conexionSql;
         public Horarios_Formulario()
         {
@@ -76,6 +79,29 @@ namespace ReserBus.View
             CBSucursal.ItemsSource = tablaResultado.DefaultView;
             CBSucursal.SelectedValuePath = "id_destino";
             CBSucursal.DisplayMemberPath = "ciudad";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DoubleClickHandler(object sender, MouseButtonEventArgs e)
+        {
+            //if (sender is DataGrid dataGrid && dataGrid.SelectedItem != null)
+            //{
+            //    // Reemplazar el modelo
+            //    if (dataGrid.SelectedItem is MODELO destinoSelected)
+            //    {
+            //        // Almacenar la ciudad del elemento seleccionado en el array
+            //        ciudadesSeleccionadas.Add(destinoSelected.Ciudad);
+            //
+            //        // Actualizar el texto de txtDestinosSeleccionados con las ciudades unidas mediante " - "
+            //        txtDestinosSeleccionados.Text = string.Join(" - ", ciudadesSeleccionadas);
+            //    }
+            //}
+
+
         }
     }
 }

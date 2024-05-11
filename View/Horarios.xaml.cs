@@ -66,5 +66,13 @@ namespace ReserBus.View
             
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            View.Horarios_Formulario horarios_form = new View.Horarios_Formulario();
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+
+            mainWindow.Main.Content = horarios_form;
+        }
     }
 }

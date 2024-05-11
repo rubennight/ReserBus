@@ -48,5 +48,11 @@ namespace ReserBus
             Main.Content = horarios;
 
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            View.Config config= new View.Config();
+            Main.Content = config;
+        }
     }
 }

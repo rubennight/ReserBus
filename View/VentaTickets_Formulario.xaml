@@ -58,7 +58,7 @@
             </StackPanel>
             <StackPanel Grid.Column="2">
                 <TextBlock Text="Fecha y hora de salida" FontSize="18" />
-                <TextBlock FontWeight="SemiBold" FontSize="18" Text="2024-04-24 04:00 PM" />
+                <TextBlock FontWeight="SemiBold" FontSize="18" Text="" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" Margin="30,0,30,0">

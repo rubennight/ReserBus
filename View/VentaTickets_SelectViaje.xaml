@@ -62,7 +62,7 @@
             </Button.Content>
         </Button>
         <TextBlock Text="Viajes coincidentes" Grid.Row="4" FontSize="18" Padding="30,0,0,0" />
-        <DataGrid x:Name="DGViajesCoincidentes" Grid.Row="5" Margin="30,0,30,20" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False">
+        <DataGrid x:Name="DGViajesCoincidentes" Grid.Row="5" Margin="30,0,30,20" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" MouseDoubleClick="handleDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Salida" Binding="{Binding fecha_hora_salida}" Width="1*" />
                 <DataGridTextColumn Header="LLegada" Binding="{Binding fecha_hora_llegada_estimada}" Width="1*" />
