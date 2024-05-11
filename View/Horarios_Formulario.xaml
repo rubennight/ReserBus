@@ -93,11 +93,11 @@
                 <TextBlock Text="Pasa por:" FontSize="18" Grid.Column="0"/>
                 <TextBlock Text="" x:Name="txtDestinosSeleccionados" FontSize="18" Grid.Column="1"/>
             </Grid>
-            <DataGrid Grid.Row="6" Margin="30,0,30,20" FontSize="18" IsReadOnly="True" MouseDoubleClick="DoubleClickHandler">
+            <DataGrid x:Name="DGDestinos" Grid.Row="6" Margin="30,0,30,20" FontSize="18" IsReadOnly="True" MouseDoubleClick="DoubleClickHandler" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Estado" Width="1*" />
-                    <DataGridTextColumn Header="Ciudad" Width="1*" />
-                    <DataGridTextColumn Header="Precio Base" Width="1.2*" />
+                    <DataGridTextColumn Header="Estado" Binding="{Binding estado}"  Width="1*" />
+                        <DataGridTextColumn Header="Ciudad" Binding="{Binding ciudad}" Width="1*" />
+                        <DataGridTextColumn Header="Precio Base" Binding="{Binding precio_base}" Width="1.2*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
