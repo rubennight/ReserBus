@@ -71,8 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Conductor.cs" />
     <Compile Include="Model\ProximaLlegada.cs" />
     <Compile Include="Model\ProximaSalida.cs" />
+    <Compile Include="Model\Unidad.cs" />
     <Compile Include="ReserBusDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,5 +1,10 @@
-﻿using System;
+﻿using ReserBus.Model;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +27,95 @@ namespace ReserBus.View
     {
 
         Boolean createRegistro;
+
+        private List<Conductor> _conductores;
+
+        public List<Conductor> ConductoresData
+        {
+            get { return _conductores; }
+            set { 
+                    _conductores = value;
+                    OnPropertyChanged(nameof(_conductores));
+                }
+        }
+        private List<Unidad> _unidad;
+        public List<Unidad> UnidadesData
+        {
+            get { return _unidad;}
+            set { 
+                    _unidad = value; 
+                    OnPropertyChanged(nameof(_unidad));
+                }
+        }
+
+        SqlConnection miConexionSql;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public Config()
         {
             InitializeComponent();
+
+            DataContext = this;
+
+            string miConexion = ConfigurationManager.ConnectionStrings["ReserBus.Properties.Settings.dbo_v_1_3ConnectionString"].ConnectionString;
+        
+            miConexionSql = new SqlConnection(miConexion);
+
+            MuestraConductores();
+            MuestraUnidades();
+        }
+
+        public void MuestraUnidades()
+        {
+            string consulta = "SELECT\n\tu.modelo,\n\tu.numero_asientos\nFROM\n\t[dbo v_1.3].unidades AS u";
+        
+            SqlDataAdapter adapter  = new SqlDataAdapter(consulta, miConexionSql);
+
+            DataTable dataTable = new DataTable();
+
+            adapter.Fill(dataTable);
+
+            List<Unidad> unidades = new List<Unidad>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Unidad unidad = new Unidad
+                {
+                    Modelo = row["modelo"].ToString(),
+                    NumeroAsientos = Convert.ToInt32(row["numero_asientos"])
+                };
+
+                unidades.Add(unidad);
+            }
+
+            UnidadesData = unidades;
+        }
+
+        public void MuestraConductores()
+        {
+            string consulta = "SELECT\r\n\tc.nombre,\r\n\tc.apellidos \r\nFROM\r\n\t[dbo v_1.3].choferes AS c";
+
+            SqlDataAdapter adapter = new SqlDataAdapter(consulta, miConexionSql);
+
+            DataTable dataTable = new DataTable();
+
+            adapter.Fill(dataTable);
+
+            List<Conductor> conductores = new List<Conductor>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Conductor conductor = new Conductor
+                {
+                    Nombre = row["nombre"].ToString(),
+                    Apellidos = row["apellidos"].ToString()
+                };
+
+                conductores.Add(conductor);
+            }
+
+            ConductoresData = conductores;
         }
 
         private void Toggle_Unidades_Form()
@@ -121,6 +212,11 @@ namespace ReserBus.View
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             Toggle_Unidades_Form();
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -1,108 +1,196 @@
-﻿<Page x:Class="ReserBus.View.Config"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ReserBus.View"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Config">
+﻿<Page
+    x:Class="ReserBus.View.Config"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ReserBus.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Config"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
 
-    <Grid Background="White" Margin="0,50,0,0">
+    <Grid Margin="0,50,0,0" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="33*" />
             <ColumnDefinition Width="66*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <Button Click="Toggle_Datagrid" HorizontalContentAlignment="Left" Padding="15,0,0,0" Width="Auto" Height="50" Background="White" Style="{StaticResource HoverButtonStyle}">
+            <Button
+                Width="Auto"
+                Height="50"
+                Padding="15,0,0,0"
+                HorizontalContentAlignment="Left"
+                Background="White"
+                Click="Toggle_Datagrid"
+                Style="{StaticResource HoverButtonStyle}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Assets/people-fill.png" Width="30" Margin="0,0,20,0"/>
-                    <TextBlock Text="Conductores" VerticalAlignment="Center" FontSize="15"/>
+                    <Image
+                        Width="30"
+                        Margin="0,0,20,0"
+                        Source="/Assets/people-fill.png" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        Text="Conductores" />
                 </StackPanel>
             </Button>
-            <Button Click="Toggle_Datagrid" HorizontalContentAlignment="Left" Padding="15,0,0,0" Width="Auto" Height="50" Background="White" Style="{StaticResource HoverButtonStyle}">
+            <Button
+                Width="Auto"
+                Height="50"
+                Padding="15,0,0,0"
+                HorizontalContentAlignment="Left"
+                Background="White"
+                Click="Toggle_Datagrid"
+                Style="{StaticResource HoverButtonStyle}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Assets/bus-front.png" Width="30" Margin="0,0,20,0"/>
-                    <TextBlock Text="Unidades" VerticalAlignment="Center" FontSize="15"/>
+                    <Image
+                        Width="30"
+                        Margin="0,0,20,0"
+                        Source="/Assets/bus-front.png" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        Text="Unidades" />
                 </StackPanel>
             </Button>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Visibility="Hidden" Name="UnidadesDatagrid">
+        <StackPanel
+            Name="UnidadesDatagrid"
+            Grid.Column="1"
+            Orientation="Vertical"
+            Visibility="Hidden">
             <Button
+                Width="150"
+                Height="30"
                 Margin="0,10,15,0"
                 Padding="32,0,32,0"
+                HorizontalAlignment="Right"
                 Background="#279700"
                 BorderBrush="#00FFFFFF"
-                Height="30"
-                Width="150"
-                HorizontalAlignment="Right"
                 Click="CrearUnidad">
                 <Button.Content>
                     <TextBlock Foreground="White" Text="Guardar" />
                 </Button.Content>
             </Button>
-            <DataGrid Margin="15,15,15,15" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" Height="400">
+            <DataGrid
+                Height="400"
+                Margin="15,15,15,15"
+                AutoGenerateColumns="False"
+                CanUserReorderColumns="False"
+                DataContext="{Binding}"
+                FontSize="18"
+                IsReadOnly="True"
+                ItemsSource="{Binding UnidadesData}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Modelo" Width="1*" />
-                    <DataGridTextColumn Header="# Asientos" Width="1*" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding Modelo}"
+                        Header="Modelo" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding NumeroAsientos}"
+                        Header="# Asientos" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Name="ConductoresDatagrid" Visibility="Visible">
+        <StackPanel
+            Name="ConductoresDatagrid"
+            Grid.Column="1"
+            Orientation="Vertical"
+            Visibility="Visible">
             <Button
+                Width="150"
+                Height="30"
                 Margin="0,10,15,0"
                 Padding="32,0,32,0"
+                HorizontalAlignment="Right"
                 Background="#279700"
                 BorderBrush="#00FFFFFF"
-                Height="30"
-                Width="150"
-                HorizontalAlignment="Right"
                 Click="CrearConductor">
                 <Button.Content>
                     <TextBlock Foreground="White" Text="Guardar" />
                 </Button.Content>
             </Button>
-            <DataGrid Margin="15,15,15,15" FontSize="18" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" Height="400">
+            <DataGrid
+                Height="400"
+                Margin="15,15,15,15"
+                AutoGenerateColumns="False"
+                CanUserReorderColumns="False"
+                DataContext="{Binding}"
+                FontSize="18"
+                IsReadOnly="True"
+                ItemsSource="{Binding ConductoresData}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nombre" Width="1*" />
-                    <DataGridTextColumn Header="Apellidos" Width="1*" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding Nombre}"
+                        Header="Nombre" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding Apellidos}"
+                        Header="Apellidos" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <Grid Grid.Column="0" Name="Overlay1" Background="#80000000" Opacity="0.3" Visibility="Hidden"/>
-        <Grid Grid.Column="1" Name="Overlay2" Background="#80000000" Opacity="0.3" Visibility="Hidden"/>
-        <Popup Name="ChoferesForm" IsOpen="False" Placement="Center">
-            <Border Background="White" BorderBrush="Transparent" BorderThickness="0" Width="500" Height="500">
+        <Grid
+            Name="Overlay1"
+            Grid.Column="0"
+            Background="#80000000"
+            Opacity="0.3"
+            Visibility="Hidden" />
+        <Grid
+            Name="Overlay2"
+            Grid.Column="1"
+            Background="#80000000"
+            Opacity="0.3"
+            Visibility="Hidden" />
+        <Popup
+            Name="ChoferesForm"
+            IsOpen="False"
+            Placement="Center">
+            <Border
+                Width="500"
+                Height="500"
+                Background="White"
+                BorderBrush="Transparent"
+                BorderThickness="0">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="5" Color="Black" Opacity="0.5"/>
+                    <DropShadowEffect
+                        Opacity="0.5"
+                        ShadowDepth="5"
+                        Color="Black" />
                 </Border.Effect>
                 <StackPanel Margin="10">
-                    <TextBlock Text="Crear/Actualizar Conductores" FontWeight="Bold" Margin="0 0 0 10"/>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        FontWeight="Bold"
+                        Text="Crear/Actualizar Conductores" />
                     <StackPanel>
-                        <TextBlock Text="Nombre" FontSize="18" />
-                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtNombre"/>
+                        <TextBlock FontSize="18" Text="Nombre" />
+                        <TextBox Name="txtNombre" Style="{StaticResource TextBoxStyle}" />
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Text="Apellidos" FontSize="18" />
-                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtApellidos"/>
+                        <TextBlock FontSize="18" Text="Apellidos" />
+                        <TextBox Name="txtApellidos" Style="{StaticResource TextBoxStyle}" />
                     </StackPanel>
                     <Button
+                        Height="30"
                         Margin="0,30,30,0"
                         Padding="32,0,32,0"
                         Background="#279700"
-                        BorderBrush="#00FFFFFF"
-                        Height="30">
+                        BorderBrush="#00FFFFFF">
                         <Button.Content>
                             <TextBlock Foreground="White" Text="Guardar" />
                         </Button.Content>
                     </Button>
                     <Button
+                        Height="30"
                         Margin="0,0,30,0"
                         Padding="32,0,32,0"
                         Background="#AE0000"
                         BorderBrush="#00FFFFFF"
-                        Click="Button_Click"
-                        Height="30">
+                        Click="Button_Click">
                         <Button.Content>
                             <TextBlock Foreground="White" Text="Cancelar" />
                         </Button.Content>
@@ -110,38 +198,52 @@
                 </StackPanel>
             </Border>
         </Popup>
-        <Popup Name="UnidadesForm" IsOpen="False" Placement="Center">
-            <Border Background="White" BorderBrush="Transparent" BorderThickness="0" Width="500" Height="500">
+        <Popup
+            Name="UnidadesForm"
+            IsOpen="False"
+            Placement="Center">
+            <Border
+                Width="500"
+                Height="500"
+                Background="White"
+                BorderBrush="Transparent"
+                BorderThickness="0">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="5" Color="Black" Opacity="0.5"/>
+                    <DropShadowEffect
+                        Opacity="0.5"
+                        ShadowDepth="5"
+                        Color="Black" />
                 </Border.Effect>
                 <StackPanel Margin="10">
-                    <TextBlock Text="Crear/Actualizar Unidad" FontWeight="Bold" Margin="0 0 0 10"/>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        FontWeight="Bold"
+                        Text="Crear/Actualizar Unidad" />
                     <StackPanel>
-                        <TextBlock Text="Modelo" FontSize="18" />
-                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtModelo"/>
+                        <TextBlock FontSize="18" Text="Modelo" />
+                        <TextBox Name="txtModelo" Style="{StaticResource TextBoxStyle}" />
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Text="Cantidad de asientos" FontSize="18" />
-                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtCantidadAsientos"/>
+                        <TextBlock FontSize="18" Text="Cantidad de asientos" />
+                        <TextBox Name="txtCantidadAsientos" Style="{StaticResource TextBoxStyle}" />
                     </StackPanel>
                     <Button
+                        Height="30"
                         Margin="0,30,30,0"
                         Padding="32,0,32,0"
                         Background="#279700"
-                        BorderBrush="#00FFFFFF"
-                        Height="30">
+                        BorderBrush="#00FFFFFF">
                         <Button.Content>
                             <TextBlock Foreground="White" Text="Guardar" />
                         </Button.Content>
                     </Button>
                     <Button
+                        Height="30"
                         Margin="0,0,30,0"
                         Padding="32,0,32,0"
                         Background="#AE0000"
                         BorderBrush="#00FFFFFF"
-                        Click='Button_Click_1'
-                        Height="30">
+                        Click="Button_Click_1">
                         <Button.Content>
                             <TextBlock Foreground="White" Text="Cancelar" />
                         </Button.Content>
