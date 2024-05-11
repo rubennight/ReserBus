@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,16 @@ namespace ReserBus.View
     /// </summary>
     public partial class VentaTickets_Formulario : Page
     {
-        public VentaTickets_Formulario()
+        DataRowView selectedItem;
+        public VentaTickets_Formulario(DataRowView selectedItem)
         {
             InitializeComponent();
+
+            txtDestino.Text = selectedItem["destino"].ToString();
+            txtOrigen.Text = selectedItem["origen"].ToString();
+            txtFechaSalida.Text = selectedItem["fecha_hora_salida"].ToString();
+            txtCosto.Text = "$ " + selectedItem["precio"].ToString();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

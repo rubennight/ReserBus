@@ -85,36 +85,7 @@ namespace ReserBus.View
 
         private void muestraViajesCoincidentes(string origen, string destino,string fecha)
         {
-            string consulta =
-                "SELECT \r\n" +
-                "subconsulta1.id_viaje_programado,\r\n" +
-                "subconsulta1.fecha_hora_salida,\r\n" +
-                "subconsulta1.fecha_hora_llegada_estimada,\r\n" +
-                "subconsulta1.cupo,\r\n" +
-                "subconsulta1.id_destino,\r\n" +
-                "subconsulta2.id_destino\r\n\r\n" +
-                "FROM\r\n" +
-                "(select \r\n\t" +
-                "v.id_viaje_programado,v.fecha_hora_salida,v.fecha_hora_llegada_estimada,v.cupo, r.id_destino\r\n\t" +
-                "from\r\n\t" +
-                "[dbo v_1.3].viajes_programados as v,\r\n\t" +
-                "[dbo v_1.3].rutas as r \r\n\t" +
-                "where\r\n\t" +
-                "v.id_viaje_programado = r.id_ruta and\r\n\t" +
-                "r.id_destino = @origen) AS subconsulta1\r\n" +
-                "INNER JOIN\r\n" +
-                "(select \r\n\t" +
-                "v.id_viaje_programado,r.id_destino\r\n\t" +
-                "from\r\n\t" +
-                "[dbo v_1.3].viajes_programados as v,\r\n\t" +
-                "[dbo v_1.3].rutas as r \r\n\t" +
-                "where\r\n\t" +
-                "v.id_viaje_programado = r.id_ruta and\r\n\t" +
-                "r.id_destino = @destino) AS subconsulta2\r\n\r\n" +
-                "ON\r\n" +
-                "subconsulta1.id_viaje_programado = subconsulta2.id_viaje_programado " +
-                "WHERE\r\n" +
-                "CONVERT(DATE, subconsulta1.fecha_hora_salida) = @fecha";
+            string consulta = "SELECT\r\n  subconsulta1.id_viaje_programado,\r\n  subconsulta1.fecha_hora_salida,\r\n  subconsulta1.fecha_hora_llegada_estimada,\r\n  subconsulta1.cupo,\r\n  subconsulta1.id_destino,\r\n  subconsulta2.id_destino,\r\n  origen,\r\n  destino\r\nFROM\r\n  (\r\n    select\r\n      v.id_viaje_programado,\r\n      v.fecha_hora_salida,\r\n      v.fecha_hora_llegada_estimada,\r\n      v.cupo,\r\n      r.id_destino,\r\n\t  d.estado + ', ' + d.ciudad as \"origen\"\r\n    from\r\n      [dbo v_1.3].viajes_programados as v,\r\n      [dbo v_1.3].rutas as r\r\n\t  inner join [dbo v_1.3].destinos d on d.id_destino=r.id_destino\r\n    where\r\n      v.id_viaje_programado = r.id_ruta\r\n      and r.id_destino = @origen\r\n  ) AS subconsulta1\r\n  INNER JOIN (\r\n    select\r\n      v.id_viaje_programado,\r\n      r.id_destino,\r\n\t  d.estado + ', ' + d.ciudad as destino\r\n    from\r\n      [dbo v_1.3].viajes_programados as v,\r\n      [dbo v_1.3].rutas as r\r\n\t  inner join [dbo v_1.3].destinos d on d.id_destino=r.id_destino\r\n    where\r\n      v.id_viaje_programado = r.id_ruta\r\n      and r.id_destino = @destino\r\n  ) AS subconsulta2 ON subconsulta1.id_viaje_programado = subconsulta2.id_viaje_programado\r\nWHERE\r\n  CONVERT(DATE, subconsulta1.fecha_hora_salida) = @fecha;";
             SqlCommand comando = new SqlCommand(consulta, conexionSql);
             SqlDataAdapter adaptadorSql = new SqlDataAdapter(comando);
             DataTable tablaResultado = new DataTable();//Viajes coincidentes.
@@ -151,9 +122,9 @@ namespace ReserBus.View
 
         private DataTable obtenRutaYPrecio(List<string> viajes)
         {
-            string consulta = "\r\nSELECT STRING_AGG(d.ciudad,',') AS ruta_total, STRING_AGG(d.precio_base,',') AS precio_total\r\n" +
+            string consulta = "\r\nSELECT STRING_AGG(d.ciudad,',') AS ruta_total, sum(d.precio_base) AS precio_total\r\n" +
                 "FROM [dbo v_1.3].rutas AS r\r\n" +
-                "INNER JOIN [dbo v_1.3].destinos AS d ON d.id_destino = r.id_destino AND r.id_ruta = @viaje; ";
+                "INNER JOIN [dbo v_1.3].destinos AS d ON d.id_destino = r.id_destino AND r.id_ruta = @viaje;";
             SqlCommand comandoSQL = new SqlCommand(consulta, conexionSql);
             SqlDataAdapter adaptadorSql = new SqlDataAdapter(comandoSQL);
             DataTable tablaResultado = new DataTable();//Tabla de las rutas y precios de todos los viajes coincidentes.
@@ -195,7 +166,11 @@ namespace ReserBus.View
                 // Ahora puedes acceder a las propiedades del elemento seleccionado y utilizarlas como desees
                 // Por ejemplo, puedes mostrarlas en un MessageBox
                 DataRowView rowView = (DataRowView)dataGrid.SelectedItem;
-                MessageBox.Show($"Elemento seleccionado: {rowView["id_viaje_programado"].ToString()}");
+
+                View.VentaTickets_Formulario selectViaje = new View.VentaTickets_Formulario(rowView);
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+
+                mainWindow.Main.Content = selectViaje;
 
             }
 
